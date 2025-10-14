@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.example.tradingapp.presentation.portfolio.PortfolioScreen
+import com.example.tradingapp.presentation.navigation.TradingAppNavigation
 import com.example.tradingapp.ui.theme.TradingAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             var isDarkTheme by remember { mutableStateOf(false) }
 
             TradingAppTheme(darkTheme = isDarkTheme) {
-                PortfolioScreen(
+                TradingAppNavigation(
                     isDarkTheme = isDarkTheme,
                     onThemeToggle = { isDarkTheme = !isDarkTheme }
                 )

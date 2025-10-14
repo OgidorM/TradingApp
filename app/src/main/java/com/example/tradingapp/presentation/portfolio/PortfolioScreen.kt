@@ -53,7 +53,8 @@ val chartData = listOf(
 @Composable
 fun PortfolioScreen(
     isDarkTheme: Boolean = false,
-    onThemeToggle: () -> Unit = {}
+    onThemeToggle: () -> Unit = {},
+    onAssetClick: (symbol: String, name: String) -> Unit = { _, _ -> }
 ) {
     val successColor = Color(0xFF10B981)
     val errorColor = Color(0xFFEF4444)
@@ -172,7 +173,8 @@ fun PortfolioScreen(
                 ModernAssetCard(
                     asset = asset,
                     successColor = successColor,
-                    errorColor = errorColor
+                    errorColor = errorColor,
+                    onClick = { onAssetClick(asset.symbol, asset.name) }
                 )
                 Spacer(Modifier.height(12.dp))
             }
@@ -321,7 +323,8 @@ fun PortfolioChart(data: List<Float>) {
 fun ModernAssetCard(
     asset: Asset,
     successColor: Color,
-    errorColor: Color
+    errorColor: Color,
+    onClick: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
@@ -329,7 +332,8 @@ fun ModernAssetCard(
             .padding(horizontal = 20.dp)
             .shadow(2.dp, RoundedCornerShape(16.dp)),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier
