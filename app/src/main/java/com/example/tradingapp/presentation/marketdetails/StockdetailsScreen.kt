@@ -74,7 +74,7 @@ val mockStock = StockDetails(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StockDetailsScreen(
-    isDarkTheme: Boolean = false,
+    @Suppress("UNUSED_PARAMETER") isDarkTheme: Boolean = false,
     symbol: String = "AAPL",
     name: String = "Apple Inc.",
     onBackClick: () -> Unit = {}
@@ -510,7 +510,7 @@ fun StatCard(label: String, value: String, modifier: Modifier = Modifier) {
 }
 
 // Helper function to get stock details based on symbol
-fun getStockDetailsForSymbol(symbol: String, name: String): StockDetails {
+fun getStockDetailsForSymbol(symbol: String, @Suppress("UNUSED_PARAMETER") name: String): StockDetails {
     return when (symbol) {
         "AAPL" -> StockDetails(
             symbol = "AAPL",

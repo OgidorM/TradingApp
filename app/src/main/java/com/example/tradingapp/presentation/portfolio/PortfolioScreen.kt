@@ -54,7 +54,8 @@ val chartData = listOf(
 fun PortfolioScreen(
     isDarkTheme: Boolean = false,
     onThemeToggle: () -> Unit = {},
-    onAssetClick: (symbol: String, name: String) -> Unit = { _, _ -> }
+    onAssetClick: (symbol: String, name: String) -> Unit = { _, _ -> },
+    onMarketClick: () -> Unit = {}
 ) {
     val successColor = Color(0xFF10B981)
     val errorColor = Color(0xFFEF4444)
@@ -100,28 +101,58 @@ fun PortfolioScreen(
                                 color = Color.White
                             )
 
-                            // Modern Theme Toggle with emoji
-                            Surface(
-                                shape = RoundedCornerShape(24.dp),
-                                color = Color.White.copy(alpha = 0.2f),
-                                onClick = onThemeToggle,
-                                modifier = Modifier.padding(4.dp)
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Row(
-                                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                // Market button
+                                Surface(
+                                    shape = RoundedCornerShape(24.dp),
+                                    color = Color.White.copy(alpha = 0.2f),
+                                    onClick = onMarketClick,
+                                    modifier = Modifier.padding(4.dp)
                                 ) {
-                                    Text(
-                                        if (isDarkTheme) "🌙" else "☀️",
-                                        fontSize = 18.sp
-                                    )
-                                    Text(
-                                        if (isDarkTheme) "Dark" else "Light",
-                                        color = Color.White,
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.SemiBold
-                                    )
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Text(
+                                            "📊",
+                                            fontSize = 16.sp
+                                        )
+                                        Text(
+                                            "Market",
+                                            color = Color.White,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.SemiBold
+                                        )
+                                    }
+                                }
+
+                                // Modern Theme Toggle with emoji
+                                Surface(
+                                    shape = RoundedCornerShape(24.dp),
+                                    color = Color.White.copy(alpha = 0.2f),
+                                    onClick = onThemeToggle,
+                                    modifier = Modifier.padding(4.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Text(
+                                            if (isDarkTheme) "🌙" else "☀️",
+                                            fontSize = 18.sp
+                                        )
+                                        Text(
+                                            if (isDarkTheme) "Dark" else "Light",
+                                            color = Color.White,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.SemiBold
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -186,8 +217,8 @@ fun PortfolioScreen(
 fun PortfolioBalanceSection(
     balance: Double,
     dailyChange: Double,
-    successColor: Color,
-    errorColor: Color
+    @Suppress("UNUSED_PARAMETER") successColor: Color,
+    @Suppress("UNUSED_PARAMETER") errorColor: Color
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),

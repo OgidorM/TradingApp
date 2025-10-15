@@ -8,9 +8,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.tradingapp.presentation.marketdetails.StockDetailsScreen
 import com.example.tradingapp.presentation.portfolio.PortfolioScreen
+import com.example.tradingapp.presentation.market.MarketScreen
 
 sealed class Screen(val route: String) {
     object Portfolio : Screen("portfolio")
+    object Market : Screen("market")
     object StockDetails : Screen("stock_details/{symbol}/{name}") {
         fun createRoute(symbol: String, name: String) = "stock_details/$symbol/$name"
     }
@@ -33,7 +35,16 @@ fun TradingAppNavigation(
                 onThemeToggle = onThemeToggle,
                 onAssetClick = { symbol, name ->
                     navController.navigate(Screen.StockDetails.createRoute(symbol, name))
+                },
+                onMarketClick = {
+                    navController.navigate(Screen.Market.route)
                 }
+            )
+        }
+
+        composable(Screen.Market.route) {
+            MarketScreen(
+                onBackClick = { navController.popBackStack() }
             )
         }
 
